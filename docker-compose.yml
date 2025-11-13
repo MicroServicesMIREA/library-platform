@@ -18,7 +18,7 @@ services:
 
   user_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/user-service
+      context: ../user-service
       dockerfile: Dockerfile
     container_name: lib_user_service
     ports:
@@ -32,7 +32,7 @@ services:
 
   catalog_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/catalog-service
+      context: ../catalog-service
       dockerfile: Dockerfile
     container_name: lib_catalog_service
     ports:
@@ -46,7 +46,7 @@ services:
 
   library_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/library-service
+      context: ../library-service
       dockerfile: Dockerfile
     container_name: lib_library_service
     ports:
@@ -64,7 +64,7 @@ services:
 
   reading_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/reading-service
+      context: ../reading-service
       dockerfile: Dockerfile
     container_name: lib_reading_service
     ports:
@@ -82,7 +82,7 @@ services:
 
   rating_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/rating-service
+      context: ../rating-service
       dockerfile: Dockerfile
     container_name: lib_rating_service
     ports:
@@ -100,7 +100,7 @@ services:
 
   review_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/review-service
+      context: ../review-service
       dockerfile: Dockerfile
     container_name: lib_review_service
     ports:
@@ -118,7 +118,7 @@ services:
 
   subscription_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/subscription-service
+      context: ../subscription-service
       dockerfile: Dockerfile
     container_name: lib_subscription_service
     ports:
@@ -134,7 +134,7 @@ services:
 
   recommendation_service:
     build:
-      context: /Applications/Univer/kurs_4/MS/project/recommendation-service
+      context: ../recommendation-service
       dockerfile: Dockerfile
     container_name: lib_recommendation_service
     ports:
