@@ -30,13 +30,99 @@ services:
     networks:
       - library_network
 
+  catalog_service:
+    build:
+      context: /Applications/Univer/kurs_4/MS/project/catalog-service
+      dockerfile: Dockerfile
+    container_name: lib_catalog_service
+    ports:
+      - "8002:8000"
+    depends_on:
+      - postgres_db
+    environment:
+      - DATABASE_URL=postgresql://library_user:library_password@postgres_db:5432/library_db
+    networks:
+      - library_network
+
   library_service:
     build:
       context: /Applications/Univer/kurs_4/MS/project/library-service
       dockerfile: Dockerfile
     container_name: lib_library_service
     ports:
-      - "8002:8000"
+      - "8003:8000"
+    depends_on:
+      - postgres_db
+      - user_service
+      - catalog_service
+    environment:
+      - DATABASE_URL=postgresql://library_user:library_password@postgres_db:5432/library_db
+      - USER_SERVICE_URL=http://user_service:8001
+      - CATALOG_SERVICE_URL=http://catalog_service:8002
+    networks:
+      - library_network
+
+  reading_service:
+    build:
+      context: /Applications/Univer/kurs_4/MS/project/reading-service
+      dockerfile: Dockerfile
+    container_name: lib_reading_service
+    ports:
+      - "8004:8000"
+    depends_on:
+      - postgres_db
+      - user_service
+      - catalog_service
+    environment:
+      - DATABASE_URL=postgresql://library_user:library_password@postgres_db:5432/library_db
+      - USER_SERVICE_URL=http://user_service:8001
+      - CATALOG_SERVICE_URL=http://catalog_service:8002
+    networks:
+      - library_network
+
+  rating_service:
+    build:
+      context: /Applications/Univer/kurs_4/MS/project/rating-service
+      dockerfile: Dockerfile
+    container_name: lib_rating_service
+    ports:
+      - "8005:8000"
+    depends_on:
+      - postgres_db
+      - user_service
+      - catalog_service
+    environment:
+      - DATABASE_URL=postgresql://library_user:library_password@postgres_db:5432/library_db
+      - USER_SERVICE_URL=http://user_service:8001
+      - CATALOG_SERVICE_URL=http://catalog_service:8002
+    networks:
+      - library_network
+
+  review_service:
+    build:
+      context: /Applications/Univer/kurs_4/MS/project/review-service
+      dockerfile: Dockerfile
+    container_name: lib_review_service
+    ports:
+      - "8006:8000"
+    depends_on:
+      - postgres_db
+      - user_service
+      - catalog_service
+    environment:
+      - DATABASE_URL=postgresql://library_user:library_password@postgres_db:5432/library_db
+      - USER_SERVICE_URL=http://user_service:8001
+      - CATALOG_SERVICE_URL=http://catalog_service:8002
+    networks:
+      - library_network
+
+  subscription_service:
+    build:
+      context: /Applications/Univer/kurs_4/MS/project/subscription-service
+      dockerfile: Dockerfile
+    container_name: lib_subscription_service
+    ports:
+      - "8007:8000"
     depends_on:
       - postgres_db
       - user_service
@@ -46,16 +132,25 @@ services:
     networks:
       - library_network
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: lib_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@library.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+  recommendation_service:
+    build:
+      context: /Applications/Univer/kurs_4/MS/project/recommendation-service
+      dockerfile: Dockerfile
+    container_name: lib_recommendation_service
     ports:
-      - "8080:80"
+      - "8008:8000"
     depends_on:
       - postgres_db
+      - user_service
+      - catalog_service
+      - reading_service
+      - rating_service
+    environment:
+      - DATABASE_URL=postgresql://library_user:library_password@postgres_db:5432/library_db
+      - USER_SERVICE_URL=http://user_service:8001
+      - CATALOG_SERVICE_URL=http://catalog_service:8002
+      - READING_SERVICE_URL=http://reading_service:8004
+      - RATING_SERVICE_URL=http://rating_service:8005
     networks:
       - library_network
 
