@@ -1,0 +1,9 @@
+[submodule "user-service"]
+    path = user-service
+    url = https://github.com/your-username/user-service.git
+    branch = main
+
+[submodule "library-service"]
+    path = library-service
+    url = https://github.com/your-username/library-service.git
+    branch = main
