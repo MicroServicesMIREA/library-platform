@@ -1,6 +1,0 @@
-[submodule "user-service"]
-    path = user-service
-    url = https://github.com/MicroServicesMIREA/user-service
-[submodule "library-service"]
-    path = library-service
-    url = https://github.com/MicroServicesMIREA/library-service
